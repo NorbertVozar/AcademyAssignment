@@ -18,4 +18,8 @@ public interface ArticleService {
 	  /** Creates new {@link Article}s by ingesting all articles from json */
 	  void ingestArticles(String jsonArticles);
 
+	/** Deletes selected {@link Article} */
+	void deleteArticleByID(Integer articleID);
+
+	List<Article> searchArticles(String searchByText);
 	}

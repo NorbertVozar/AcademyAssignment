@@ -14,4 +14,8 @@ public interface ArticleDAO {
 
 	  /** Persists {@link Article} into the DB */
 	  void persist(Article article);
-	}
+	void ingestArticles(String jsonArticles);
+	void deleteByID(Integer articleID);
+
+	List<Article> searchArticles(String searchByText);
+}
