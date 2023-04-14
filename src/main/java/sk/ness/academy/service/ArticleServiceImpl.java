@@ -29,8 +29,7 @@ public class ArticleServiceImpl implements ArticleService {
     if (article == null) {
       return null;
     } else {
-      article.setComments(this.commentDAO.findByArt(articleId));
-      return article;
+    return article;
     }
   }
 

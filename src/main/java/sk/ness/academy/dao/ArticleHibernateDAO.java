@@ -2,7 +2,6 @@ package sk.ness.academy.dao;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
 import com.google.gson.Gson;
@@ -25,7 +24,7 @@ public class ArticleHibernateDAO implements ArticleDAO {
   @Override
   public Article findByID(final Integer articleId) {
     Article article = this.sessionFactory.getCurrentSession().get(Article.class, articleId);
-   // Hibernate.initialize(article.getComments());
+   Hibernate.initialize(article.getComments());
     return article;
   }
 
@@ -57,6 +56,11 @@ public class ArticleHibernateDAO implements ArticleDAO {
   @SuppressWarnings("unchecked")
   @Override
   public List<Article> searchArticles(String searchByText) {
-    return this.sessionFactory.getCurrentSession().createSQLQuery("select * from articles where title  like'%" + searchByText + "%' or author like '%" + searchByText + "%' or text like '%" + searchByText + "%'").addEntity(Article.class).list();
+    return this.sessionFactory.getCurrentSession().createSQLQuery(
+                    "select * from articles where author LIKE :par1 OR title LIKE :par2 OR text LIKE :par3")
+            .setParameter("par1", "%" + searchByText + "%")
+            .setParameter("par2", "%" + searchByText + "%")
+            .setParameter("par3", "%" + searchByText + "%")
+            .addEntity(Article.class).list();
   }
   }

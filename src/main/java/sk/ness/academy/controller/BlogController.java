@@ -58,11 +58,7 @@ public class BlogController {
   @RequestMapping(value = "articles", method = RequestMethod.PUT)
   public void addArticle(@RequestBody final Article article) {
 
-    if (article.getAuthor() == null   ||
-            article.getTitle()  == null   ||
-            article.getText()   == null
-
-           ) {
+    if (article.getAuthor()== null || article.getTitle()== null || article.getText()== null) {
       throw new ArticleNotFoundExc();
     }
 	  this.articleService.createArticle(article);
